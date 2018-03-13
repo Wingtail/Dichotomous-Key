@@ -15,19 +15,19 @@ The program features:
 
 The guidelines towards using the dichotomous program is as follows:
 
-The "Subject" refers to an object that the user wants to classify.
+* The "Subject" refers to an object that the user wants to classify.
   Ex) Specific organisms, data types, Labels of data-clusters, etc.
   
-First add a subject or multiple subjects for optimal use.
-
-The "Trait" refers to an attribute that specific "Subjects" share.
+* The "Trait" refers to an attribute that specific "Subjects" share.
   Ex) Mammal, Carnivorous, Quadratic, Irrational, etc.
   
-Add specific "Traits" before adding a trait to a subject for optimal use.
+1. First add a subject or multiple subjects for optimal use.
 
-Add a Trait to a Subject to identify the certain attributes that the subject expresses
+2. Add specific "Traits" before adding a trait to a subject for optimal use.
 
-Run Dichotomous Search after all of these recommended steps are sufficed for optimal use.
+3. Add a Trait to a Subject to identify the certain attributes that the subject expresses
+
+4. Run Dichotomous Search after all of these recommended steps are sufficed for optimal use.
 
 * This program may contain various bugs, malfunctionalities, or discomfort on the user interface.
     Please comment or report all visible bugs or discomforts on the user interface. I will fix them as soon as possible.
