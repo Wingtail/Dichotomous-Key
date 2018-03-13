@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Dichotomous{
@@ -6,7 +7,7 @@ public class Dichotomous{
   ArrayList<Attribute> attributeList;
   ArrayList<Subject> subjects;
   Scanner input;
-  Node mainNode;
+  Node mainNode = null;
 
   public Dichotomous(){
     attributeList = new ArrayList<Attribute>();
@@ -31,6 +32,11 @@ public class Dichotomous{
       System.out.println("     Press 7 to List Current Traits");
       System.out.println("     Press 8 to Remove Subject");
       System.out.println("     Press 9 to Remove Trait");
+      System.out.println("     Press 10 to Remove Trait from Subject");
+      System.out.println("     Press 11 to List Traits of Subject");
+      System.out.println("     Press 12 to Create a Dichotomous Tree");
+      System.out.println("     Press 13 to Save Current Dichotomous Tree");
+      System.out.println("     Press 14 to Load a Dichotomous Tree");
       System.out.println("     Press -999 to Exit");
       System.out.print("Input: ");
       choice = keyboard.nextInt();
@@ -78,6 +84,46 @@ public class Dichotomous{
       case 9:
         removeTrait();
       break;
+      
+      case 10:
+          removeTraitfromSubject();
+        break;
+        
+      case 11:
+          listTraitsofSubject();
+        break;
+        
+      case 12:
+          System.out.println("This option plans to graphically print a dichotomous key\nWork in Progress...");
+        break;
+        
+      case 14:
+          ReadData.loadData("Data.txt");
+          subjects = new ArrayList<Subject>();
+          attributeList = new ArrayList<Attribute>();
+          
+          for(Subject subject : ReadData.loadedSubjects)
+          {
+        	  	subjects.add(subject);
+          }
+          
+          for(Attribute attribute : ReadData.loadedAttributes)
+          {
+        	  	attributeList.add(attribute);
+          }
+          System.out.println("Data loaded");
+          
+        break;
+        
+      case 13:
+          try {
+			WriteData.recordData(subjects, attributeList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+          System.out.println("Data recorded");
+        break;
 
       case -999:
         System.out.println("Exiting...");
@@ -105,6 +151,59 @@ public class Dichotomous{
     }
   }
 
+  public void listTraitsofSubject()
+  {
+	  	int i;
+	    int choice = -1;
+
+	    Subject subject;
+
+	    if(subjects.size() <= 0)
+	    {
+	      System.out.println("No Subject to remove! Try again...");
+	      return;
+	    }
+
+	    if(attributeList.size() <= 0)
+	    {
+	      System.out.println("No traits to remove!");
+	      return;
+	    }
+
+	    while(true)
+	    {
+	      System.out.println("Select subject\n");
+
+	      for(i=0;i<subjects.size();i++)
+	      {
+	        System.out.println(i+":  "+subjects.get(i).getName());
+	      }
+	      System.out.println("Press -999 to Exit");
+	      choice = input();
+
+	      if(choice == -999)
+	      {
+	        System.out.println("Exiting mode");
+	        return;
+	      }
+	      if(choice < 0 || choice >= subjects.size())
+	      {
+	        System.out.println("Wrong choice! Try again!");
+	      }else{
+	        subject = subjects.get(choice);
+	        break;
+	      }
+	    }
+	    
+	    System.out.println("*********************************");
+		System.out.println("List of Attributes:");
+	    for(i=0;i<subject.getAttributeSize();i++)
+	    {
+	    		System.out.println(i+": "+subject.getAttribute(i).getName());
+	    }
+	    System.out.println("*********************************");
+  }
+  
   public void listTraits()
   {
     for(int i=0;i<attributeList.size();i++)
@@ -133,6 +232,85 @@ public class Dichotomous{
       System.out.println("Wrong choice! Try again!");
     }
 
+  }
+  
+  public void removeTraitfromSubject()
+  {
+	  	int i;
+	    int choice = -1;
+
+	    Subject subject;
+
+	    if(subjects.size() <= 0)
+	    {
+	      System.out.println("No Subject to remove! Try again...");
+	      return;
+	    }
+
+	    if(attributeList.size() <= 0)
+	    {
+	      System.out.println("No traits to remove!");
+	      return;
+	    }
+
+	    while(true)
+	    {
+	      System.out.println("Select subject\n");
+
+	      for(i=0;i<subjects.size();i++)
+	      {
+	        System.out.println(i+":  "+subjects.get(i).getName());
+	      }
+	      System.out.println("Press -999 to Exit");
+	      choice = input();
+
+	      if(choice == -999)
+	      {
+	        System.out.println("Exiting mode");
+	        return;
+	      }
+	      if(choice < 0 || choice >= subjects.size())
+	      {
+	        System.out.println("Wrong choice! Try again!");
+	      }else{
+	        subject = subjects.get(choice);
+	        break;
+	      }
+	    }
+	    while(true)
+	    {
+	      System.out.println("\n\n");
+	      System.out.println("Remove Trait to Subject\n");
+	      System.out.println("****************************************");
+	      System.out.println("Current List of Trait of "+subject.getName()+":");
+	      for(i=0;i<subject.getAttributeSize();i++)
+	      {
+	        System.out.println(i+":  "+subject.getAttribute(i).getName());
+	      }
+	      System.out.println("****************************************");
+	      System.out.println("Remove Trait to Subject\n");
+	      for(i=0;i<subject.getAttributeSize();i++)
+	      {
+	        System.out.println(i+":  "+subject.getAttribute(i).getName());
+	      }
+	      System.out.println("-999 to Exit");
+	      choice = input();
+
+	      if(choice == -999)
+	      {
+	        System.out.println("Exiting..");
+	        return;
+	      }else if(choice >= 0 && choice < attributeList.size())
+	      {
+	        attributeList.get(choice).decrementRate();
+	        subject.removeAttribute(choice);
+	        System.out.println("Attribute Removed");
+	      }
+	      else{
+	        System.out.println("Wrong choice! Try again!");
+	      }
+
+	    }
   }
 
   public void removeSubject()
@@ -180,7 +358,14 @@ public class Dichotomous{
     Attribute trait = new Attribute();
     String name;
     System.out.println("Trait to add: ");
+    System.out.println("Press -999 to exit");
     name = input.nextLine();
+    
+    if(Integer.parseInt(name) == -999)
+    {
+    		System.out.println("Exiting..");
+    		return;
+    }
     for(Attribute candidate : attributeList)
     {
       if(candidate.getName().equals(name))
@@ -300,7 +485,6 @@ public class Dichotomous{
 
   public Attribute getMaxAttribute(ArrayList<Subject> subjects)
   {
-    int i;
     int max = -999;
     Attribute meanAttribute = null;
     for(Subject member:subjects)
@@ -337,7 +521,10 @@ public class Dichotomous{
       dummy.add(subject);
     }
 
-    mainNode = new Node(getMaxAttribute(dummy), dummy);
+    if(dummy.size() > 0)
+    {
+    		mainNode = new Node(getMaxAttribute(dummy), dummy);
+    }
     System.out.println("Tree Constructed!");
   }
 

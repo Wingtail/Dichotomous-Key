@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,30 +5,24 @@ import java.io.IOException;
 
 public class ReadData{
 
-  private static String FILEDIR;
-  private ArrayList<Attribute> loadedAttributes;
-  private ArrayList<Subject> loadedSubjects;
-  private BufferedReader br = null;
-  private FileReader fr = null;
+  public static ArrayList<Attribute> loadedAttributes;
+  public static ArrayList<Subject> loadedSubjects;
+  public static BufferedReader br = null;
+  public static FileReader fr = null;
 
-  public ReadData(String FILEDIR)
+
+  public static void loadData(String FILEDIR)
   {
-    ReadData.FILEDIR = FILEDIR;
-    loadedAttributes = new ArrayList<Attribute>();
-    loadedSubjects = new ArrayList<Subject>();
+	  loadedAttributes = new ArrayList<Attribute>();
+	  loadedSubjects = new ArrayList<Subject>();
 
-    try{
-      fr = new FileReader(FILEDIR);
-      br = new BufferedReader(fr);
-    }catch(IOException e)
-    {
-      System.out.println("Error while loading file");
-      e.printStackTrace();
-    }
-  }
-
-  public void loadData()
-  {
+	  try{
+	      fr = new FileReader(FILEDIR);
+	      br = new BufferedReader(fr);
+	  }catch(IOException e)
+	  {
+	      System.out.println("Error while loading file.. Perhaps no File?");
+	  }
     try{
       String sCurrentLine = null;
       int index = 0;

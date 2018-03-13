@@ -41,6 +41,12 @@ public class Attribute{
     return rate;
   }
 
+  public int decrementRate()
+  {
+	  rate--;
+	  return rate;
+  }
+  
   public void setRate(int key)
   {
     rate = key;
